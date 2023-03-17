@@ -35,8 +35,20 @@ const controllerGetUsers = async (req, res) => {
   res.status(200).json(allUsers);
 };
 
+const controllerGetUserById = async (req, res) => {
+  const { id } = req.params;
+  const user = await serviceUserLogin.getUserById(id);
+  
+  if (!user) {
+    return res.status(404).json({ message: 'User does not exist' });
+  }
+
+    res.status(200).json(user);
+};
+
 module.exports = {
   controllerUserLogin,
   controllerAddUser,
   controllerGetUsers,
+  controllerGetUserById,
 };
