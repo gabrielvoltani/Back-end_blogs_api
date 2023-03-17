@@ -1,5 +1,6 @@
 const express = require('express');
 const { controllerUserLogin } = require('../controllers/index');
+const { verifyToken } = require('../auth/authoFunctions');
 const { displayNameValidator,
   passwordValidator,
   emailValidator,
@@ -12,5 +13,9 @@ displayNameValidator,
 passwordValidator,
 emailValidator,
 controllerUserLogin.controllerAddUser);
+
+router.get('/',
+verifyToken,
+controllerUserLogin.controllerGetUsers);
 
 module.exports = router;

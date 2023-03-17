@@ -8,7 +8,23 @@ jwt.sign({ payload }, portToken, {
     expiresIn: '9d',
 });
 
-const verifyToken = (token) => jwt.verify(token, portToken);
+const verifyToken = (req, res, next) => {
+    const token = req.headers.authorization;
+  
+    try {
+      if (!token) {
+          return res.status(401).json({ message: 'Token not found' });
+      }
+      const payload = jwt.verify(token, portToken);
+  
+      req.User = payload;
+  
+      return next();
+    } catch (err) {
+      err.statusCode = 401;
+      return res.status(401).json({ message: 'Expired or invalid token' });
+    }
+  };
 
 module.exports = {
     creatToken,
