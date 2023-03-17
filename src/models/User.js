@@ -15,5 +15,18 @@ module.exports = (sequelize, DataTypes) => {
     // true se os nomes da coluna estão em snake_case
   });
 
+  User.associate = (models) => {
+    User.hasMany(models.BlogPost,
+      //associação de "User" para "blog_post", usando o método "hasMany". Isso significa que um usuário pode ter vários posts de blog                           
+    { foreignKey: 'user_id', as: 'blogPosts' });           
+    //especifica que a chave estrangeira será usada para vincular os dois modelos e a opção "as" define o nome que será usado para a associação.
+  };
+
+    
+
+
+
+
   return User;
 };
+
