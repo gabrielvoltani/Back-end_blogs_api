@@ -10,4 +10,8 @@ verifyToken,
 categoryValidator,
 controllerCategory.addCategory);
 
+router.get('/',
+verifyToken,
+controllerCategory.getAllCats);
+
 module.exports = router;
