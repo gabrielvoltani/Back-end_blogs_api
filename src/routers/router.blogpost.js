@@ -12,7 +12,10 @@ const router = express.Router();
 
 router.get('/',
 verifyToken,
-// blogPostValidator,
 controllerBlogPost.getPosts);
+
+router.get('/:id',
+verifyToken,
+controllerBlogPost.getSinglePost);
 
 module.exports = router;

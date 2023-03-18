@@ -25,6 +25,8 @@ app.use('/user/:id', routerUser);
 app.use('/categories', routerCategory);
 
 app.use('/post', routerBlogpost);
+
+app.use('/post/:id', routerBlogpost);
 // ...
 
 // É importante exportar a constante `app`,

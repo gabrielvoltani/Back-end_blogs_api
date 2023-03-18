@@ -14,9 +14,6 @@ const { serviceBlogPost } = require('../services/index');
 // };
 
 const getPosts = async (_req, res) => {
-  // const post = await loginService.getPostAll();
-  // console.log(post);
-  // return res.status(200).json(post);
   try {
   const post = await serviceBlogPost.getAllposts();
     return res.status(200).json(post);
@@ -25,7 +22,22 @@ const getPosts = async (_req, res) => {
   }
 };
 
+const getSinglePost = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const getPost = await serviceBlogPost.getPostById(id);
+    if (!getPost) {
+      return res.status(404).json({ message: 'Post does not exist' });
+    }
+    return res.status(200).json(getPost);
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json('Error banco');
+  }
+};
+
 module.exports = {
   getPosts,
+  getSinglePost,
   // createPost,
 };
