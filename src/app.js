@@ -5,6 +5,7 @@ const {
   routerLogin,
   routerUser,
   routerCategory,
+  routerBlogpost,
 } = require('./routers');
 
 const app = express();
@@ -22,6 +23,8 @@ app.use('/user', routerUser);
 app.use('/user/:id', routerUser);
 
 app.use('/categories', routerCategory);
+
+app.use('/post', routerBlogpost);
 // ...
 
 // É importante exportar a constante `app`,
