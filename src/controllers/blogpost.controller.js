@@ -1,16 +1,30 @@
 const { serviceBlogPost } = require('../services/index');
-// arrumar o import aqui, botar la no index
 
-// const createPost = async (req, res) => {
-// try {
-//   const { emailUser } = req.data;
-//   const { title, content, categoryIds } = req.body;
-//   const { message } = await serviceBlogPost.createPost(emailUser, title, content, categoryIds);
-//   return res.status(201).json(message);
-// } catch (error) {
-//   console.log(error.message);
-//   return res.status(400).json({ message: 'one or more "categoryIds" not found' });
-// }
+const addPost = async (req, res) => {
+try {
+  const { emailUser } = req.data;
+  const { title, content, categoryIds } = req.body;
+  const { message } = await serviceBlogPost.createPost(emailUser, title, content, categoryIds);
+  return res.status(201).json(message);
+} catch (error) {
+  return res.status(400).json({ message: 'one or more "categoryIds" not found' });
+}
+};
+
+// talvez era só arrumar o nome aqui
+
+// const postsController = {
+//   create: async (req, res) => {
+
+//     const validateBody = validatePost(req.body);
+//     if (validateBody.error) {
+//       return res.status(validateBody.error.code).json(validateBody.error.message);
+//     }
+//     const { email } = validatedToken;
+//     const result = await postsService.create(validateBody, email);
+//     if (result.error) return res.status(result.error.code).json(result.error.message);
+//     res.status(201).json(result);
+//   },
 // };
 
 const getPosts = async (_req, res) => {
@@ -39,5 +53,5 @@ const getSinglePost = async (req, res) => {
 module.exports = {
   getPosts,
   getSinglePost,
-  // createPost,
+  addPost,
 };
