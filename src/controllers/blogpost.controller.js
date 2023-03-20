@@ -2,7 +2,7 @@ const { serviceBlogPost } = require('../services/index');
 
 const addPost = async (req, res) => {
 try {
-  const { emailUser } = req.data;
+  const emailUser = req.user;
   const { title, content, categoryIds } = req.body;
   const { message } = await serviceBlogPost.createPost(emailUser, title, content, categoryIds);
   return res.status(201).json(message);
@@ -10,22 +10,6 @@ try {
   return res.status(400).json({ message: 'one or more "categoryIds" not found' });
 }
 };
-
-// talvez era só arrumar o nome aqui
-
-// const postsController = {
-//   create: async (req, res) => {
-
-//     const validateBody = validatePost(req.body);
-//     if (validateBody.error) {
-//       return res.status(validateBody.error.code).json(validateBody.error.message);
-//     }
-//     const { email } = validatedToken;
-//     const result = await postsService.create(validateBody, email);
-//     if (result.error) return res.status(result.error.code).json(result.error.message);
-//     res.status(201).json(result);
-//   },
-// };
 
 const getPosts = async (_req, res) => {
   try {
@@ -45,8 +29,18 @@ const getSinglePost = async (req, res) => {
     }
     return res.status(200).json(getPost);
   } catch (error) {
-    console.log(error.message);
     return res.status(500).json('Error banco');
+  }
+};
+
+const getBlogPostBySearching = async (req, res) => {
+  try {
+    const { q: dataSearch } = req.query;
+    const { type, message } = await serviceBlogPost.searchBlogPost(dataSearch);
+
+    return res.status(type).json(message);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
   }
 };
 
@@ -54,4 +48,5 @@ module.exports = {
   getPosts,
   getSinglePost,
   addPost,
+  getBlogPostBySearching,
 };

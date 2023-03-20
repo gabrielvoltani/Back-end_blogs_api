@@ -9,13 +9,17 @@ router.get('/',
 verifyToken,
 controllerBlogPost.getPosts);
 
-router.get('/:id',
-verifyToken,
-controllerBlogPost.getSinglePost);
-
 router.post('/',
 verifyToken,
 blogPostValidator,
 controllerBlogPost.addPost);
+
+router.get('/:id',
+verifyToken,
+controllerBlogPost.getSinglePost);
+
+router.get('/search',
+verifyToken,
+controllerBlogPost.getBlogPostBySearching);
 
 module.exports = router;

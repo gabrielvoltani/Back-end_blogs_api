@@ -10,16 +10,13 @@ const controllerUserLogin = async (req, res) => {
     });
   }
   const token = await creatToken(email);
+  // talvez erro aqui também, talvez seja getuser de param pra creatToken
 
   return res.status(200).json({ token });
 };
 
 const controllerAddUser = async (req, res) => {
   const { email, password, displayName, image } = req.body;
-//   const emailRegex = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i;
-//   if (!emailRegex.test(email)) {
-//     return res.status(400).json({ message: '"email" must be a valid email' });
-// }
 
 try {
   const addingUser = await serviceUserLogin.addUser(email, password, displayName, image);
@@ -46,9 +43,17 @@ const controllerGetUserById = async (req, res) => {
     res.status(200).json(user);
 };
 
+// const controllerUserDelete = async (req, res) => {
+//   const { id } = req.User;
+//   // o problema está qui no req.User
+//   await serviceUserLogin.deleteUser(id);
+//   return res.status(204);
+// };
+
 module.exports = {
   controllerUserLogin,
   controllerAddUser,
   controllerGetUsers,
   controllerGetUserById,
+  // controllerUserDelete,
 };

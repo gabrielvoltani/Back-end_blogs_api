@@ -22,4 +22,8 @@ router.get('/:id',
 verifyToken,
 controllerUserLogin.controllerGetUserById);
 
+// router.delete('/me',
+// verifyToken,
+// controllerUserLogin.controllerUserDelete);
+
 module.exports = router;
