@@ -31,10 +31,10 @@ router.put(
   controllerBlogPost.updateBlogPost,
 );
 
-router.delete('/:id',
-verifyToken,
-// validateHasId,
-validateAuthorization,
-controllerBlogPost.deleteBlogPost);
+// router.delete('/:id',
+// verifyToken,
+// // validateHasId,
+// validateAuthorization,
+// controllerBlogPost.deleteBlogPost);
 
 module.exports = router;
