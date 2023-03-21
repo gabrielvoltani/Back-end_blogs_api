@@ -16,9 +16,9 @@ const verifyToken = (req, res, next) => {
           return res.status(401).json({ message: 'Token not found' });
       }
       const payload = jwt.verify(token, portToken);
-      
+
       req.user = payload.payload;
-      console.log(payload);
+      console.log(req.user);
       return next();
     } catch (err) {
       err.statusCode = 401;

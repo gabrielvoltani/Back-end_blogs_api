@@ -9,8 +9,7 @@ const controllerUserLogin = async (req, res) => {
       message: 'Invalid fields',
     });
   }
-  const token = await creatToken(email);
-  // talvez erro aqui também, talvez seja getuser de param pra creatToken
+  const token = await creatToken(getUser);
 
   return res.status(200).json({ token });
 };
@@ -43,17 +42,16 @@ const controllerGetUserById = async (req, res) => {
     res.status(200).json(user);
 };
 
-// const controllerUserDelete = async (req, res) => {
-//   const { id } = req.User;
-//   // o problema está qui no req.User
-//   await serviceUserLogin.deleteUser(id);
-//   return res.status(204);
-// };
+const controllerUserDelete = async (req, res) => {
+  const { id } = req.user;
+  await serviceUserLogin.deleteUser(id);
+  return res.status(204).json({ message: '' });
+};
 
 module.exports = {
   controllerUserLogin,
   controllerAddUser,
   controllerGetUsers,
   controllerGetUserById,
-  // controllerUserDelete,
+  controllerUserDelete,
 };

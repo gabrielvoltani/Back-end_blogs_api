@@ -2,9 +2,9 @@ const { serviceBlogPost } = require('../services/index');
 
 const addPost = async (req, res) => {
 try {
-  const emailUser = req.user;
+  const { email } = req.user;
   const { title, content, categoryIds } = req.body;
-  const { message } = await serviceBlogPost.createPost(emailUser, title, content, categoryIds);
+  const { message } = await serviceBlogPost.createPost(email, title, content, categoryIds);
   return res.status(201).json(message);
 } catch (error) {
   return res.status(400).json({ message: 'one or more "categoryIds" not found' });

@@ -22,14 +22,14 @@ const getUserById = async (id) => {
   return user;
 };
 
-// const deleteUser = async (id) => {
-//   await User.destroy({ where: { id } });
-// };
+const deleteUser = async (id) => {
+  await User.destroy({ where: { id } });
+};
 
 module.exports = {
   serviceUserLogin,
   addUser,
   getUsers,
   getUserById,
-  // deleteUser,
+  deleteUser,
 };
