@@ -44,9 +44,34 @@ const getBlogPostBySearching = async (req, res) => {
   }
 };
 
+const updateBlogPost = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const newDataPost = req.body;
+    console.log('Controller:', newDataPost);
+    const { type, message } = await serviceBlogPost.updateBlogPost(newDataPost, id);
+
+    return res.status(type).json(message);
+  } catch (error) {
+    return res.status(500).json({ message: 'Erro interno', error: error.message });
+  }
+};
+
+const deleteBlogPost = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { type, message } = await serviceBlogPost.deleteBlogPost(id);
+    return res.status(type).json(message);
+  } catch (e) {
+    return res.status(500).json({ message: e.message });
+  }
+};
+
 module.exports = {
   getPosts,
   getSinglePost,
   addPost,
   getBlogPostBySearching,
+  updateBlogPost,
+  deleteBlogPost,
 };

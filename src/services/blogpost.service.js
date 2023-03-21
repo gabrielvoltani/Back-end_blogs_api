@@ -6,6 +6,8 @@ const env = process.env.NODE_ENV || 'development';
 const sequelize = new Sequelize(config[env]);
 const { User, Category, BlogPost, PostCategory } = require('../models');
 
+const editPostValidate = require('../middlewares/editPostValidate');
+
 const createPost = async (email, title, content, categoryIds) => {
   const t = await sequelize.transaction();
   const findUser = await User.findOne({ where: { email } });
@@ -49,7 +51,8 @@ const getPostById = async (id) => {
 
 const getBlogPostBySearch = async (search) => {
   const post = await BlogPost.findAll({
-    where: { [Op.or]: [
+    where: {
+      [Op.or]: [
         { title: { [Op.like]: `%${search}%` } },
         { content: { [Op.like]: `%${search}%` } },
       ],
@@ -62,9 +65,29 @@ const getBlogPostBySearch = async (search) => {
   return { type: 200, message: post };
 };
 
+const updateBlogPost = async (newDataPost, id) => {
+  const error = editPostValidate(newDataPost);
+  if (error) return { type: error.type, message: error.message };
+
+  await BlogPost.update(newDataPost, {
+    where: { id },
+  });
+
+  const newPost = await getPostById(id);
+  console.log(newPost);
+  return { type: 200, message: newPost.dataValues };
+};
+
+const deleteBlogPost = async (id) => {
+  await BlogPost.destroy({ where: { id } });
+  return { type: 204, message: '' };
+};
+
 module.exports = {
   createPost,
   getAllposts,
   getPostById,
   getBlogPostBySearch,
+  updateBlogPost,
+  deleteBlogPost,
 };

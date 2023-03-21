@@ -2,6 +2,8 @@ const express = require('express');
 const { controllerBlogPost } = require('../controllers/index');
 const { verifyToken } = require('../auth/authoFunctions');
 const { blogPostValidator } = require('../middlewares/blogpostValidator');
+// const validateHasId = require('../middlewares/idValidatior');
+const validateAuthorization = require('../middlewares/authorizationValidator');
 
 const router = express.Router();
 
@@ -21,5 +23,18 @@ controllerBlogPost.getSinglePost);
 router.get('/search',
 verifyToken,
 controllerBlogPost.getBlogPostBySearching);
+
+router.put(
+  '/:id',
+  verifyToken,
+  validateAuthorization,
+  controllerBlogPost.updateBlogPost,
+);
+
+router.delete('/:id',
+verifyToken,
+// validateHasId,
+validateAuthorization,
+controllerBlogPost.deleteBlogPost);
 
 module.exports = router;

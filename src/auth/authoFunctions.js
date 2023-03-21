@@ -18,7 +18,6 @@ const verifyToken = (req, res, next) => {
       const payload = jwt.verify(token, portToken);
 
       req.user = payload.payload;
-      console.log(req.user);
       return next();
     } catch (err) {
       err.statusCode = 401;
