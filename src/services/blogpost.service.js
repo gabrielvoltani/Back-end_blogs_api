@@ -74,7 +74,6 @@ const updateBlogPost = async (newDataPost, id) => {
   });
 
   const newPost = await getPostById(id);
-  console.log(newPost);
   return { type: 200, message: newPost.dataValues };
 };
 
