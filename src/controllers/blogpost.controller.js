@@ -33,7 +33,7 @@ const getSinglePost = async (req, res) => {
   }
 };
 
-const getBlogPostBySearching = async (req, res) => {
+const searchBlogPost = async (req, res) => {
   try {
     const { q: dataSearch } = req.query;
     const { type, message } = await serviceBlogPost.searchBlogPost(dataSearch);
@@ -71,7 +71,7 @@ module.exports = {
   getPosts,
   getSinglePost,
   addPost,
-  getBlogPostBySearching,
+  searchBlogPost,
   updateBlogPost,
   deleteBlogPost,
 };

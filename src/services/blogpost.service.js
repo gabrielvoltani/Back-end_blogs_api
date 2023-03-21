@@ -49,17 +49,22 @@ const getPostById = async (id) => {
   return getPost;
 };
 
-const getBlogPostBySearch = async (search) => {
+const searchBlogPost = async (dataSearch) => {
   const post = await BlogPost.findAll({
-    where: {
-      [Op.or]: [
-        { title: { [Op.like]: `%${search}%` } },
-        { content: { [Op.like]: `%${search}%` } },
+    where: { [Op.or]: [
+        { title: { [Op.like]: `%${dataSearch}%` } },
+        { content: { [Op.like]: `%${dataSearch}%` } },
       ],
     },
     include: [
-      { model: User, as: 'user', attributes: { exclude: ['password'] } },
-      { model: Category, as: 'categories', attributes: { exclude: ['PostCategory'] } },
+      { model: User, 
+        as: 'user', 
+        attributes: { exclude: ['password'] }, 
+      },
+      { model: Category,
+        as: 'categories',
+        attributes: { exclude: ['PostCategory'] },
+      },
     ],
   });
   return { type: 200, message: post };
@@ -86,7 +91,7 @@ module.exports = {
   createPost,
   getAllposts,
   getPostById,
-  getBlogPostBySearch,
+  searchBlogPost,
   updateBlogPost,
   deleteBlogPost,
 };

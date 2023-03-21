@@ -7,6 +7,10 @@ const validateAuthorization = require('../middlewares/authorizationValidator');
 
 const router = express.Router();
 
+router.get('/search',
+verifyToken,
+controllerBlogPost.searchBlogPost);
+
 router.get('/',
 verifyToken,
 controllerBlogPost.getPosts);
@@ -19,10 +23,6 @@ controllerBlogPost.addPost);
 router.get('/:id',
 verifyToken,
 controllerBlogPost.getSinglePost);
-
-router.get('/search',
-verifyToken,
-controllerBlogPost.getBlogPostBySearching);
 
 router.put(
   '/:id',
