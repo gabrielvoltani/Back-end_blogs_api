@@ -1,7 +1,29 @@
-# Blogs API
+# Back-end Blogs API
 
-Neste projeto pude desenvolver uma API e um banco de dados para a produção de conteúdo para um blog. Utilizei o Node.js e o pacote sequelize para fazer um CRUD de posts e endpoints que estavam conectados ao banco de dados seguindo os princípios do REST.
+This is a RESTful API for a blog system that allows users to create and manage blog posts. The API was built using Node.js and MongoDB.
 
-Para a criação de um post, trabalhei com a relação entre usuário e post, tornando necessário um login para poder publicar conteúdo. Além disso, utilizei a relação entre categorias e posts para organizar o conteúdo produzido.
+## Features
 
-O objetivo do projeto foi criar uma plataforma simples e eficiente para a produção de conteúdo em um blog, com foco em uma experiência amigável para o usuário.
+- Users can create, read, update and delete blog posts.
+- Posts can be filtered by title, content or author.
+- Users can authenticate using JWT (JSON Web Tokens) and create an account.
+- Users can view and update their own profile information.
+
+## API Endpoints
+
+- POST	/users/register	Creates a new user account.
+- POST	/users/login	Authenticates a user and returns a JWT token.
+- GET	/users/me	Returns information about the authenticated user.
+- PUT	/users/me	Updates information about the authenticated user.
+- GET	/posts	Returns a list of all blog posts.
+- GET	/posts/:postId	Returns a specific blog post.
+- POST	/posts	Creates a new blog post.
+- PUT	/posts/:postId	Updates an existing blog post.
+- DELETE	/posts/:postId	Deletes an existing blog post.
+- GET	/posts/search?query=	Searches for blog posts with a given query.
+
+## Technologies
+
+- Node.js
+- Express
+- JWT (JSON Web Tokens)
